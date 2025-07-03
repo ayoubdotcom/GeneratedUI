@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architectura | Journey Through History</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                        space: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .isometric-card {
+            transform: rotateX(10deg) rotateY(-15deg) rotateZ(0deg);
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+        }
+        .isometric-card:hover {
+            transform: rotateX(5deg) rotateY(-10deg) rotateZ(0deg) translateY(-10px);
+            box-shadow: 30px 30px 60px rgba(0, 0, 0, 0.4);
+        }
+        .hidden-scene {
+            display: none;
+        }
+        .structure-icon {
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+        }
+        .structure-icon:hover {
+            transform: translateY(-5px) rotateY(15deg);
+        }
+        .timeline-bar {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+        .timeline-marker {
+            transform: translateZ(30px);
+            transition: all 0.3s ease;
+        }
+        .timeline-marker:hover {
+            transform: translateZ(30px) scale(1.2);
+        }
+        .floating-3d {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) rotateY(0deg); }
+            50% { transform: translateY(-20px) rotateY(5deg); }
+            100% { transform: translateY(0px) rotateY(0deg); }
+        }
+        #canvas-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+        }
+        #scene-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        /* For mobile devices */
+        @media (max-width: 768px) {
+            .parallax-bg {
+                background-attachment: scroll;
+            }
+            .isometric-card {
+                transform: rotateX(5deg) rotateY(-8deg) rotateZ(0deg);
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-stone-50 text-stone-800">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-stone-900/90 backdrop-blur-md z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <a href="#" class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-primary-600 rounded-md transform rotate-45"></div>
+                            <span class="text-white font-space font-bold text-xl">Architectura</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-10">
+                        <a href="#hero" class="text-stone-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="#structures" class="text-stone-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Structures</a>
+                        <a href="#timeline" class="text-stone-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Timeline</a>
+                        <a href="#explore" class="text-stone-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Explore</a>
+                        <a href="#contact" class="text-white bg-primary-600 hover:bg-primary-700 px-4 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-stone-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-stone-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#hero" class="text-stone-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#structures" class="text-stone-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Structures</a>
+                <a href="#timeline" class="text-stone-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Timeline</a>
+                <a href="#explore" class="text-stone-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Explore</a>
+                <a href="#contact" class="text-white bg-primary-600 hover:bg-primary-700 block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with 3D Scene -->
+    <section id="hero" class="pt-24 pb-16 md:pt-32 md:pb-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+                <div class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
+                    <h1 class="text-4xl tracking-tight font-extrabold text-stone-900 sm:text-5xl md:text-6xl">
+                        <span class="block font-space">Journey Through</span>
+                        <span class="block text-primary-600 font-space">Architectural History</span>
+                    </h1>
+                    <p class="mt-3 text-base text-stone-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                        Explore the world's most iconic historical structures in immersive 3D. Uncover the engineering marvels and stories behind each masterpiece.
+                    </p>
+                    <div class="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0">
+                        <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                            <div class="rounded-md shadow">
+                                <a href="#structures" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 md:py-4 md:text-lg md:px-10 transition-colors">
+                                    Begin Exploration
+                                </a>
+                            </div>
+                            <div class="mt-3 sm:mt-0 sm:ml-3">
+                                <a href="#timeline" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-primary-600 bg-white hover:bg-stone-100 md:py-4 md:text-lg md:px-10 transition-colors">
+                                    View Timeline
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
+                    <div class="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md">
+                        <div class="relative block w-full bg-white overflow-hidden rounded-lg isometric-card">
+                            <img id="hero-structure" class="w-full h-auto transition-opacity duration-500" src="https://images.unsplash.com/photo-1522093007474-d86e9bf7ba6f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Colosseum">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <button id="rotate-structure" class="p-2 rounded-full bg-white/80 backdrop-blur-md shadow-md hover:bg-primary-50 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 hidden md:block">
+                <div class="scroll-indicator flex flex-col items-center text-stone-400">
+                    <span class="mb-1 text-sm">Scroll</span>
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Iconic Structures Showcase -->
+    <section id="structures" class="py-16 md:py-24 bg-stone-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-stone-900 sm:text-4xl font-space">
+                    Iconic Structures Through Time
+                </h2>
+                <p class="mt-3 max-w-2xl mx-auto text-base text-stone-500 sm:mt-4 sm:text-lg md:mt-5">
+                    Select a structure to explore in 3D and learn about its architectural significance.
+                </p>
+            </div>
+
+            <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+                <!-- Pyramid Card -->
+                <div class="group relative bg-white py-6 px-6 rounded-2xl shadow-xl structure-card isometric-card">
+                    <div class="text-rose-500 absolute -top-6 left-6 bg-white p-2 rounded-lg shadow-md structure-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-xl font-bold text-stone-900">Great Pyramid of Giza</h3>
+                        <p class="mt-2 text-sm text-stone-500">
+                            The oldest of the Seven Wonders of the Ancient World, built around 2580–2560 BC.
+                        </p>
+                        <div class="mt-4">
+                            <div class="flex space-x-1">
+                                <span class="flex-shrink-0 inline-block px-2 py-1 text-xs font-medium bg-amber-100 text-amber-800 rounded-md">Egypt</span>
+                                <span class="flex-shrink-0 inline-block px-2 py-1 text-xs font-medium bg-stone-100 text-stone-800 rounded-md">~2580 BC</span>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <button class="structure-btn px-4 py-2 bg-primary-50 text-primary-600 text-sm font-medium rounded-md hover:bg-primary-100 transition-colors" data-structure="pyramid">
+                                Explore 3D Model
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Colosseum Card -->
+                <div class="group relative bg-white py-6 px-6 rounded-2xl shadow-xl structure-card isometric-card">
+                    <div class="text-blue-500 absolute -top-6 left-6 bg-white p-2 rounded-lg shadow-md structure-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-xl font-bold text-stone-900">Colosseum</h3>
+                        <p class="mt-2 text-sm text-stone-500">
+                            An elliptical amphitheatre in Rome, completed in AD 80 under emperor Titus.
+                        </p>
+                        <div class="mt-4">
+                            <div class="flex space-x-1">
+                                <span class="flex-shrink-0 inline-block px-2 py-1 text-xs font-medium bg-rose-100 text-rose-800 rounded-md">Italy</span>
+                                <span class="flex-shrink-0 inline-block px-2 py-1 text-xs font-medium bg-stone-100 text-stone-800 rounded-md">80 AD</span>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <button class="structure-btn px-4 py-2 bg-primary-50 text-primary-600 text-sm font-medium rounded-md hover:bg-primary-100 transition-colors" data-structure="colosseum">
+                                Explore 3D Model
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notre-Dame Card -->
+                <div class="group relative bg-white py-6 px-6 rounded-2xl shadow-xl structure-card isometric-card">
+                    <div class="text-emerald-500 absolute -top-6 left-6 bg-white p-2 rounded-lg shadow-md structure-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M13 7H7v6h6V7z" />
+                            <path fill-rule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-xl font-bold text-stone-900">Notre-Dame de Paris</h3>
+                        <p class="mt-2 text-sm text-stone-500">
+                            Medieval Catholic cathedral renowned for its French Gothic architecture.
+                        </p>
+                        <div class="mt-4">
+                            <div class="flex space-x-1">
+                                <span class="flex-shrink-0 inline-block px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-md">France</span>
+                                <span class="flex-shrink-0 inline-block px-2 py-1 text-xs font-medium bg-stone-100 text-stone-800 rounded-md">1345 AD</span>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <button class="structure-btn px-4 py-2 bg-primary-50 text-primary-600 text-sm font-medium rounded-md hover:bg-primary-100 transition-colors" data-structure="notre-dame">
+                                Explore 3D Model
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Taj Mahal Card -->
+                <div class="group relative bg-white py-6 px-6 rounded-2xl shadow-xl structure-card isometric-card">
+                    <div class="text-violet-500 absolute -top-6 left-6 bg-white p-2 rounded-lg shadow-md structure-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-xl font-bold text-stone-900">Taj Mahal</h3>
+                        <p class="mt-2 text-sm text-stone-500">
+                            An ivory-white marble mausoleum built in Agra by Mughal emperor Shah Jahan.
+                        </p>
+                        <div class="mt-4">
+                            <div class="flex space-x-1">
+                                <span class="flex-shrink-0 inline-block px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-md">India</span>
+                                <span class="flex-shrink-0 inline-block px-2 py-1 text-xs font-medium bg-stone-100 text-stone-800 rounded-md">1643 AD</span>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <button class="structure-btn px-4 py-2 bg-primary-50 text-primary-600 text-sm font-medium rounded-md hover:bg-primary-100 transition-colors" data-structure="taj-mahal">
+                                Explore 3D Model
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D Model Viewer Section -->
+    <section id="model-viewer" class="py-16 bg-stone-900 text-white hidden-scene">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-extrabold font-space" id="model-title">Great Pyramid of Giza</h2>
+                <button id="close-viewer" class="p-2 rounded-full bg-stone-700 hover:bg-stone-600 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="md:col-span-2">
+                    <div class="bg-stone-800 rounded-xl overflow-hidden aspect-w-16 aspect-h-9 relative">
+                        <div id="model-container" class="w-full h-96 md:h-[500px] bg-gradient-to-br from-stone-700 to-stone-800 flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="w-16 h-16 border-4 border-dashed border-primary-400 rounded-full animate-spin mx-auto"></div>
+                                <p class="mt-4 text-stone-300">Loading 3D model...</p>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-4 right-4 flex space-x-2">
+                            <button class="model-control p-2 bg-stone-700/80 backdrop-blur rounded-full hover:bg-stone-600 transition-colors" data-action="rotate">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                            </button>
+                            <button class="model-control p-2 bg-stone-700/80 backdrop-blur rounded-full hover:bg-stone-600 transition-colors" data-action="zoom-in">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 10v4m0-4H6m4 0H14" />
+                                </svg>
+                            </button>
+                            <button class="model-control p-2 bg-stone-700/80 backdrop-blur rounded-full hover:bg-stone-600 transition-colors" data-action="zoom-out">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 14H6" />
+                                </svg>
+                            </button>
+                            <button class="model-control p-2 bg-stone-700/80 backdrop-blur rounded-full hover:bg-stone-600 transition-colors" data-action="reset">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-stone-800 rounded-xl p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="flex-shrink-0 bg-primary-600 p-3 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-xl font-bold" id="structure-name">Great Pyramid of Giza</h3>
+                            <p class="text-stone-300 text-sm" id="structure-period">~2580–2560 BC</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-stone-200">Architectural Style</h4>
+                            <p class="text-stone-400" id="structure-style">Ancient Egyptian</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-stone-200">Construction Period</h4>
+                            <p class="text-stone-400" id="structure-years">20 years</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-stone-200">Height</h4>
+                            <p class="text-stone-400" id="structure-height">146.6 m (481 ft)</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-stone-200">Materials</h4>
+                            <p class="text-stone-400" id="structure-materials">Limestone, granite, mortar</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 pt-6 border-t border-stone-700">
+                        <h4 class="font-semibold text-stone-200 mb-2">Interesting Facts</h4>
+                        <ul class="text-stone-400 space-y-2" id="structure-facts">
+                            <li class="flex items-start">
+                                <svg class="flex-shrink-0 h-4 w-4 text-primary-400 mt-1 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Originally covered with polished limestone casing stones</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="flex-shrink-0 h-4 w-4 text-primary-400 mt-1 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Base covers 13 acres (5.3 hectares)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="flex-shrink-0 h-4 w-4 text-primary-400 mt-1 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Estimated 2.3 million stone blocks used</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <button class="w-full flex justify-center items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 rounded-md font-medium transition-colors">
+                            Download Detailed Blueprint
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Historical Timeline Section -->
+    <section id="timeline" class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-stone-900 sm:text-4xl font-space">
+                    Architectural Evolution Timeline
+                </h2>
+                <p class="mt-3 max-w-2xl mx-auto text-base text-stone-500 sm:mt-4 sm:text-lg md:mt-5">
+                    Explore how architectural styles and techniques evolved through different historical periods.
+                </p>
+            </div>
+            
+            <div class="mt-16">
+                <div class="timeline-bar relative h-2 bg-gradient-to-r from-amber-500 via-emerald-500 to-primary-600 rounded-full mx-4 md:mx-10">
+                    <!-- Timeline Markers -->
+                    <div class="absolute left-0 -translate-x-1/2 -translate-y-1/2 top-1/2 timeline-marker" style="left: 5%;">
+                        <div class="w-6 h-6 bg-amber-500 rounded-full border-4 border-white shadow-lg flex items-center justify-center">
+                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                        </div>
+                        <div class="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-48 text-center">
+                            <div class="text-xs font-semibold bg-amber-100 text-amber-800 px-2 py-1 rounded-md">3000 BC</div>
+                            <div class="mt-1 text-sm font-medium">Ancient Egypt</div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 timeline-marker" style="left: 22%;">
+                        <div class="w-6 h-6 bg-emerald-400 rounded-full border-4 border-white shadow-lg flex items-center justify-center">
+                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                        </div>
+                        <div class="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-48 text-center">
+                            <div class="text-xs font-semibold bg-emerald-100 text-emerald-800 px-2 py-1 rounded-md">500 BC</div>
+                            <div class="mt-1 text-sm font-medium">Classical Greece</div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 timeline-marker" style="left: 35%;">
+                        <div class="w-6 h-6 bg-cyan-400 rounded-full border-4 border-white shadow-lg flex items-center justify-center">
+                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                        </div>
+                        <div class="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-48 text-center">
+                            <div class="text-xs font-semibold bg-cyan-100 text-cyan-800 px-2 py-1 rounded-md">0 AD</div>
+                            <div class="mt-1 text-sm font-medium">Roman Empire</div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 timeline-marker" style="left: 55%;">
+                        <div class="w-6 h-6 bg-blue-400 rounded-full border-4 border-white shadow-lg flex items-center justify-center">
+                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                        </div>
+                        <div class="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-48 text-center">
+                            <div class="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-md">1200 AD</div>
+                            <div class="mt-1 text-sm font-medium">Gothic</div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 timeline-marker" style="left: 75%;">
+                        <div class="w-6 h-6 bg-violet-400 rounded-full border-4 border-white shadow-lg flex items-center justify-center">
+                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                        </div>
+                        <div class="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-48 text-center">
+                            <div class="text-xs font-semibold bg-violet-100 text-violet-800 px-2 py-1 rounded-md">1600 AD</div>
+                            <div class="mt-1 text-sm font-medium">Baroque</div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 timeline-marker" style="left: 95%;">
+                        <div class="w-6 h-6 bg-primary-500 rounded-full border-4 border-white shadow-lg flex items-center justify-center">
+                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                        </div>
+                        <div class="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-48 text-center">
+                            <div class="text-xs font-semibold bg-primary-100 text-primary-800 px-2 py-1 rounded-md">Modern</div>
+                            <div class="mt-1 text-sm font-medium">20th Century</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-20 grid gap-8 md:grid-cols-3">
+                <!-- Ancient Architecture Card -->
+                <div class="bg-stone-50 p-6 rounded-xl shadow-md isometric-card">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-amber-100 p-2 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h18M3 16h18" />
+                            </svg>
+                        </div>
+                        <h3 class="ml-4 text-xl font-bold text-stone-800">Ancient Architecture</h3>
+                    </div>
+                    <p class="text-stone-600">
+                        Characterized by massive structures with thick walls, columns, and minimal openings. The pyramids, ziggurats, and temples emphasized symmetry and geometric precision.
+                    </p>
+                    <div class="mt-4">
+                        <span class="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-semibold">3000 BC - 500 BC</span>
+                    </div>
+                </div>
+                
+                <!-- Classical Architecture Card -->
+                <div class="bg-stone-50 p-6 rounded-xl shadow-md isometric-card">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-emerald-100 p-2 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                            </svg>
+                        </div>
+                        <h3 class="ml-4 text-xl font-bold text-stone-800">Classical</h3>
+                    </div>
+                    <p class="text-stone-600">
+                        Greek and Roman architecture introduced the classical orders (Doric, Ionic, Corinthian) with emphasis on proportion, symmetry, and mathematical precision. The arch and dome became significant innovations.
+                    </p>
+                    <div class="mt-4">
+                        <span class="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-semibold">500 BC - 500 AD</span>
+                    </div>
+                </div>
+                
+                <!-- Gothic Architecture Card -->
+                <div class="bg-stone-50 p-6 rounded-xl shadow-md isometric-card">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 p-2 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                        </div>
+                        <h3 class="ml-4 text-xl font-bold text-stone-800">Gothic</h3>
+                    </div>
+                    <p class="text-stone-600">
+                        Known for pointed arches, ribbed vaults, and flying buttresses that allowed taller buildings with more glass. Cathedrals like Notre-Dame emphasized verticality and light.
+                    </p>
+                    <div class="mt-4">
+                        <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-semibold">1100 - 1500 AD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Explore Section -->
+    <section id="explore" class="py-16 md:py-24 bg-gradient-to-br from-stone-900 to-stone-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold sm:text-4xl font-space">
+                    Interactive Construction Experience
+                </h2>
+                <p class="mt-3 max-w-2xl mx-auto text-base text-stone-300 sm:mt-4 sm:text-lg md:mt-5">
+                    Understand how these structures were built through interactive diagrams and 3D models.
+                </p>
+            </div>
+            
+            <div class="mt-12 grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <div class="bg-stone-800 rounded-xl p-6 isometric-card">
+                        <div class="flex mb-6">
+                            <div class="flex-shrink-0 bg-primary-500 p-3 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-xl font-bold">Build Your Own Pyramid</h3>
+                                <p class="text-stone-300 text-sm">Step-by-step construction process</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <div class="mb-4">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium text-stone-300">Foundation Layer</span>
+                                    <span class="text-sm font-medium text-primary-400">Step 1 of 5</span>
+                                </div>
+                                <div class="w-full bg-stone-700 rounded-full h-2.5">
+                                    <div class="bg-primary-600 h-2.5 rounded-full" style="width: 20%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-5 gap-2">
+                                <div class="h-32 bg-stone-700 rounded flex items-center justify-center relative">
+                                    <div class="absolute inset-0 bg-gradient-to-b from-amber-500/20 to-amber-800/20"></div>
+                                    <span class="text-stone-300 text-xs">Corner Block</span>
+                                </div>
+                                <div class="h-32 bg-stone-700 rounded flex items-center justify-center">
+                                    <span class="text-stone-300 text-xs">Base Block</span>
+                                </div>
+                                <div class="h-32 bg-stone-700 rounded flex items-center justify-center">
+                                    <span class="text-stone-300 text-xs">Base Block</span>
+                                </div>
+                                <div class="h-32 bg-stone-700 rounded flex items-center justify-center">
+                                    <span class="text-stone-300 text-xs">Base Block</span>
+                                </div>
+                                <div class="h-32 bg-stone-700 rounded flex items-center justify-center relative">
+                                    <div class="absolute inset-0 bg-gradient-to-b from-amber-500/20 to-amber-800/20"></div>
+                                    <span class="text-stone-300 text-xs">Corner Block</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 space-y-3">
+                                <button class="w-full py-2 px-4 bg-primary-600 hover:bg-primary-700 rounded-md text-sm font-medium transition-colors flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                                    </svg>
+                                    Place First Layer
+                                </button>
+                                <button class="w-full py-2 px-4 bg-stone-700 hover:bg-stone-600 rounded-md text-sm font-medium transition-colors flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    Skip to Next Step
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="bg-stone-800 rounded-xl overflow-hidden isometric-card floating-3d">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-4">Materials & Technology</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-stone-700/50 rounded-lg p-3 border border-stone-600 hover:border-primary-400 transition-colors">
+                                    <div class="flex items-center mb-2">
+                                        <div class="bg-stone-600 p-2 rounded-lg mr-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                                            </svg>
+                                        </div>
+                                        <span class="text-sm font-medium">Limestone</span>
+                                    </div>
+                                    <p class="text-xs text-stone-400">Primary building material quarried nearby</p>
+                                </div>
+                                <div class="bg-stone-700/50 rounded-lg p-3 border border-stone-600 hover:border-primary-400 transition-colors">
+                                    <div class="flex items-center mb-2">
+                                        <div class="bg-stone-600 p-2 rounded-lg mr-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                                            </svg>
+                                        </div>
+                                        <span class="text-sm font-medium">Ramps</span>
+                                    </div>
+                                    <p class="text-xs text-stone-400">Inclined planes for moving heavy stones</p>
+                                </div>
+                                <div class="bg-stone-700/50 rounded-lg p-3 border border-stone-600 hover:border-primary-400 transition-colors">
+                                    <div class="flex items-center mb-2">
+                                        <div class="bg-stone-600 p-2 rounded-lg mr-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                            </svg>
+                                        </div>
+                                        <span class="text-sm font-medium">Alignment</span>
+                                    </div>
+                                    <p class="text-xs text-stone-400">Precision astronomical orientation</p>
+                                </div>
+                                <div class="bg-stone-700/50 rounded-lg p-3 border border-stone-600 hover:border-primary-400 transition-colors">
+                                    <div class="flex items-center mb-2">
+                                        <div class="bg-stone-600 p-2 rounded-lg mr-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                            </svg>
+                                        </div>
+                                        <span class="text-sm font-medium">Plans</span>
+                                    </div>
+                                    <p class="text-xs text-stone-400">Detailed construction blueprints</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <p class="text-sm text-stone-400">
+                    Try our full <a href="#" class="text-primary-400 hover:text-primary-300 font-medium transition-colors">Interactive Builder</a> to construct your own historical structure from scratch!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA Section -->
+    <section id="contact" class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl p-8 md:p-12 isometric-card">
+                <div class="md:grid md:grid-cols-2 md:gap-12">
+                    <div>
+                        <h2 class="text-3xl font-extrabold text-stone-800 font-space">Need More Details?</h2>
+                        <p class="mt-4 text-lg text-primary-800">
+                            Our team of architectural historians is ready to answer your questions about any historical structure.
+                        </p>
+                        <div class="mt-8">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-primary-600 rounded-md p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div class="ml-4 text-base text-primary-800">
+                                    <p>Email us at</p>
+                                    <p class="font-medium">info@architectura.com</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex items-center">
+                                <div class="flex-shrink-0 bg-primary-600 rounded-md p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                    </svg>
+                                </div>
+                                <div class="ml-4 text-base text-primary-800">
+                                    <p>Call us at</p>
+                                    <p class="font-medium">+1 (555) 123-4567</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 md:mt-0">
+                        <form class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-primary-800">Name</label>
+                                <input type="text" id="name" name="name" class="mt-1 block w-full border border-primary-200 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-primary-800">Email</label>
+                                <input type="email" id="email" name="email" class="mt-1 block w-full border border-primary-200 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                            </div>
+                            <div>
+                                <label for="structure" class="block text-sm font-medium text-primary-800">Structure of Interest</label>
+                                <select id="structure" name="structure" class="mt-1 block w-full border border-primary-200 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                    <option>Great Pyramid of Giza</option>
+                                    <option>Colosseum</option>
+                                    <option>Notre-Dame Cathedral</option>
+                                    <option>Taj Mahal</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-primary-800">Message</label>
+                                <textarea id="message" name="message" rows="3" class="mt-1 block w-full border border-primary-200 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"></textarea>
+                            </div>
+                            <div>
+                                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors">
+                                    Submit Inquiry
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
+                <div>
+                    <h3 class="text-sm font-semibold text-stone-300 tracking-wider uppercase">Explore</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#structures" class="text-base text-stone-400 hover:text-white transition-colors">Structures</a></li>
+                        <li><a href="#timeline" class="text-base text-stone-400 hover:text-white transition-colors">Timeline</a></li>
+                        <li><a href="#explore" class="text-base text-stone-400 hover:text-white transition-colors">Interactive</a></li>
+                        <li><a href="#" class="text-base text-stone-400 hover:text-white transition-colors">Virtual Tours</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-stone-300 tracking-wider uppercase">Resources</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-base text-stone-400 hover:text-white transition-colors">Blueprints</a></li>
+                        <li><a href="#" class="text-base text-stone-400 hover:text-white transition-colors">Research Papers</a></li>
+                        <li><a href="#" class="text-base text-stone-400 hover:text-white transition-colors">Construction Videos</a></li>
+                        <li><a href="#" class="text-base text-stone-400 hover:text-white transition-colors">Educational Materials</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-stone-300 tracking-wider uppercase">Company</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-base text-stone-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="text-base text-stone-400 hover:text-white transition-colors">Our Team</a></li>
+                        <li><a href="#" class="text-base text-stone-400 hover:text-white transition-colors">Partners</a></li>
+                        <li><a href="#" class="text-base text-stone-400 hover:text-white transition-colors">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-stone-300 tracking-wider uppercase">Legal</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-base text-stone-400 hover:text-white transition-colors">Privacy</a></li>
+                        <li><a href="#" class="text-base text-stone-400 hover:text-white transition-colors">Terms</a></li>
+                        <li><a href="#" class="text-base text-stone-400 hover:text-white transition-colors">Cookies</a></li>
+                        <li><a href="#" class="text-base text-stone-400 hover:text-white transition-colors">Licenses</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-stone-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-primary-600 rounded-md transform rotate-45"></div>
+                    <span class="ml-2 text-white font-space font-bold text-xl">Architectura</span>
+                </div>
+                <p class="mt-4 md:mt-0 text-base text-stone-400">
+                    &copy; 2023 Architectura. All rights reserved.
+                </p>
+                <div class="mt-4 md:mt-0 flex space-x-6">
+                    <a href="#" class="text-stone-400 hover:text-white transition-colors">
+                        <span class="sr-only">Facebook</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-stone-400 hover:text-white transition-colors">
+                        <span class="sr-only">Twitter</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-stone-400 hover:text-white transition-colors">
+                        <span class="sr-only">Instagram</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-stone-400 hover:text-white transition-colors">
+                        <span class="sr-only">YouTube</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 01-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 01-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 011.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418zM15.194 12 10 15V9l5.194 3z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Structure selection - rotate through images
+        const heroStructure = document.getElementById('hero-structure');
+        const structureImages = [
+            'https://images.unsplash.com/photo-1522093007474-d86e9bf7ba6f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+            'https://images.unsplash.com/photo-1513622472932-4cc6c94969d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+            'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+            'https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+        ];
+        let currentImageIndex = 0;
+        
+        document.getElementById('rotate-structure').addEventListener('click', function() {
+            heroStructure.style.opacity = '0';
+            setTimeout(() => {
+                currentImageIndex = (currentImageIndex + 1) % structureImages.length;
+                heroStructure.src = structureImages[currentImageIndex];
+                heroStructure.style.opacity = '1';
+            }, 300);
+        });
+
+        // Structure viewer
+        const structureDetails = {
+            'pyramid': {
+                title: 'Great Pyramid of Giza',
+                period: '~2580–2560 BC',
+                style: 'Ancient Egyptian',
+                years: '20 years',
+                height: '146.6 m (481 ft)',
+                materials: 'Limestone, granite, mortar',
+                facts: [
+                    'Originally covered with polished limestone casing stones',
+                    'Base covers 13 acres (5.3 hectares)',
+                    'Estimated 2.3 million stone blocks used'
+                ]
+            },
+            'colosseum': {
+                title: 'Colosseum',
+                period: '70–80 AD',
+                style: 'Roman',
+                years: '10 years',
+                height: '48 m (157 ft)',
+                materials: 'Travertine limestone, tuff, concrete',
+                facts: [
+                    'Could hold an estimated 50,000–80,000 spectators',
+                    'Built on the site of Nero\'s artificial lake',
+                    'Hosted gladiatorial contests and public spectacles'
+                ]
+            },
+            'notre-dame': {
+                title: 'Notre-Dame de Paris',
+                period: '1163-1345 AD',
+                style: 'French Gothic',
+                years: '182 years',
+                height: '69 m (226 ft)',
+                materials: 'Limestone, wood, lead',
+                facts: [
+                    'One of the first buildings in the world to use flying buttresses',
+                    'Rose windows are 13th-century originals',
+                    'Survived damage from the French Revolution'
+                ]
+            },
+            'taj-mahal': {
+                title: 'Taj Mahal',
+                period: '1632-1643 AD',
+                style: 'Mughal',
+                years: '11 years',
+                height: '73 m (240 ft)',
+                materials: 'White marble, precious stones',
+                facts: [
+                    'Built by Emperor Shah Jahan in memory of his wife',
+                    'Symmetrical layout with gardens reflecting in water',
+                    'Changes color depending on daylight'
+                ]
+            }
+        };
+
+        document.querySelectorAll('.structure-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const structure = this.getAttribute('data-structure');
+                const details = structureDetails[structure];
+                
+                // Update model viewer content
+                document.getElementById('model-title').textContent = details.title;
+                document.getElementById('structure-name').textContent = details.title;
+                document.getElementById('structure-period').textContent = details.period;
+                document.getElementById('structure-style').textContent = details.style;
+                document.getElementById('structure-years').textContent = details.years;
+                document.getElementById('structure-height').textContent = details.height;
+                document.getElementById('structure-materials').textContent = details.materials;
+                
+                // Update facts list
+                const factsList = document.getElementById('structure-facts');
+                factsList.innerHTML = '';
+                details.facts.forEach(fact => {
+                    const li = document.createElement('li');
+                    li.className = 'flex items-start';
+                    li.innerHTML = `
+                        <svg class="flex-shrink-0 h-4 w-4 text-primary-400 mt-1 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>${fact}</span>
+                    `;
+                    factsList.appendChild(li);
+                });
+                
+                // Show model viewer
+                document.getElementById('model-viewer').classList.remove('hidden-scene');
+                document.body.style.overflow = 'hidden';
+                
+                // Simple 3D scene setup (placeholder for actual 3D model)
+                setup3DScene(structure);
+            });
+        });
+
+        document.getElementById('close-viewer').addEventListener('click', function() {
+            document.getElementById('model-viewer').classList.add('hidden-scene');
+            document.body.style.overflow = '';
+        });
+
+        // Model controls
+        document.querySelectorAll('.model-control').forEach(control => {
+            control.addEventListener('click', function() {
+                const action = this.getAttribute('data-action');
+                // In a real implementation, this would control the 3D model
+                console.log(`Model control: ${action}`);
+            });
+        });
+
+        // Basic Three.js scene setup
+        function setup3DScene(structure) {
+            const container = document.getElementById('model-container');
+            container.innerHTML = '<canvas id="three-js-canvas"></canvas>';
+            
+            // Skip actual Three.js setup in this example to keep it simple
+            // In a real implementation, you would load appropriate 3D models here
+            
+            // Instead, just show a placeholder
+            container.innerHTML = `
+                <div class="w-full h-full flex items-center justify-center">
+                    <div class="text-center">
+                        <div class="w-16 h-16 border-4 border-dashed border-primary-400 rounded-full animate-spin mx-auto"></div>
+                        <p class="mt-4 text-stone-300">Loading 3D model of ${structureDetails[structure].title}...</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Scroll animations
+        function setupScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fadeIn');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.isometric-card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            setupScrollAnimations();
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                });
+            });
+        });
+
+        // Simple parallax effect
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY;
+            const parallaxElements = document.querySelectorAll('.floating-3d');
+            
+            parallaxElements.forEach(element => {
+                element.style.transform = `translateY(${scrollPosition * 0.03}px) rotateY(${scrollPosition * 0.02}deg)`;
+            });
+        });
+    </script>
+</body>
+</html>
