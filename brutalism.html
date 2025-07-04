@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRVTAL_ZINE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=VT323&display=swap');
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+            background: black;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: white;
+            outline: 1px solid black;
+        }
+        .raw-code {
+            font-family: 'VT323', monospace;
+            white-space: pre;
+            line-height: 1.2;
+        }
+        .brutal-hover:hover {
+            background-color: white !important;
+            color: black !important;
+        }
+        .glitch-img {
+            image-rendering: pixelated;
+            filter: contrast(1.4);
+        }
+        .no-underline {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="font-mono bg-black text-white min-h-screen overflow-x-hidden">
+    <!-- HEADER (RAW AND CONFRONTATIONAL) -->
+    <header class="border-b-4 border-white p-4 md:p-8 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-red-500 -z-10 opacity-10"></div>
+        <h1 class="text-5xl md:text-8xl font-bold mb-2 font-[Black+Ops+One] tracking-tighter leading-none">
+            BRVTAL<span class="text-red-500">_</span>ZINE
+        </h1>
+        <p class="text-xs md:text-sm uppercase tracking-widest mt-1">
+            // ANTI-DESIGN ART COLLECTIVE // EST. 2023 // FUCK AESTHETICS //
+        </p>
+        <div class="absolute bottom-2 right-4 animate-pulse">
+            <span class="inline-block w-3 h-3 bg-red-500 mr-1"></span>
+            <span class="text-xs">RECORDING</span>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT (DISJOINTED LAYOUT) -->
+    <main class="px-4 md:px-8 py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- ARTICLES SECTION - MESSY STACK -->
+        <section class="md:col-span-2">
+            <div class="border-4 border-white p-2 mb-8 relative" style="transform: rotate(-1deg);">
+                <h2 class="text-3xl font-bold mb-4 underline">RECENT MANIFESTOS</h2>
+                <div class="space-y-8">
+                    <article class="border-2 border-white p-3" style="transform: rotate(0.5deg);">
+                        <h3 class="text-2xl font-bold text-red-500 mb-1">DESIGN IS DEAD</h3>
+                        <div class="text-sm leading-relaxed">
+                            <p class="mb-2">We reject the tyranny of user experience. We embrace the raw, unfiltered web. This is not your smooth, corporate playground. This is digital decay.</p>
+                            <p>> submitted by ANON(23.8)</p>
+                        </div>
+                    </article>
+                    <article class="border-2 border-white p-3 ml-8" style="transform: rotate(-0.8deg);">
+                        <h3 class="text-2xl font-bold mb-1">THE MYTH OF 'GOOD' DESIGN</h3>
+                        <div class="text-sm leading-relaxed">
+                            <p class="mb-2">Who defines 'good'? Who defines 'bad'? These are capitalist constructs meant to limit creative expression. Break free.</p>
+                            <p>> submitted by SYSTEM_FAILURE</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- ART GRID - DELIBERATELY MESSY -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold mb-4">RAW SUBMISSIONS</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="border-2 border-white p-1">
+                        <img src="https://images.unsplash.com/photo-1584539094584-c4231ff84bd4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Brutalist art 1" class="w-full h-auto glitch-img">
+                        <p class="text-xs mt-1">Untitled#23 (404.jpg)</p>
+                    </div>
+                    <div class="border-2 border-white p-1 md:col-start-3">
+                        <img src="https://images.unsplash.com/photo-1675627452893-12da23fd3190?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Brutalist art 2" class="w-full h-auto glitch-img">
+                        <p class="text-xs mt-1">Data Corruption (2023)</p>
+                    </div>
+                    <div class="border-2 border-white p-1 md:col-start-2">
+                        <img src="https://images.unsplash.com/photo-1611890798517-07b0fcb4a811?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Brutalist art 3" class="w-full h-auto glitch-img">
+                        <p class="text-xs mt-1">Browser Error (Chrome)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SIDEBAR - EXPOSED HTML LOOK -->
+        <aside class="border-4 border-white p-4 h-min sticky top-4">
+            <div class="raw-code text-sm mb-6">
+                &lt;!-- SITE NAVIGATION --&gt;
+                &lt;nav&gt;
+                &lt;ul class="list-none space-y-2"&gt;
+                &lt;li&gt;&lt;a href="#about" class="text-red-500 no-underline"&gt;ABOUT&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#archive" class="text-white no-underline"&gt;ARCHIVE&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#contact" class="text-white no-underline"&gt;CONTACT&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;/nav&gt;
+            </div>
+
+            <!-- ABOUT SECTION - BARE BONES -->
+            <div id="about" class="mb-6">
+                <h3 class="text-xl font-bold mb-2 underline">ABOUT</h3>
+                <p class="text-sm">We are an anonymous collective of artists rejecting aesthetic norms. Established 2023. No leaders. No rules. No apologies.</p>
+            </div>
+
+            <!-- MANIFESTO LIST - RAW HTML STYLE -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-2 underline">MANIFESTO</h3>
+                <ul class="list-[square] ml-5 text-sm space-y-1">
+                    <li>No gradients</li>
+                    <li>No rounded corners</li>
+                    <li>No smooth transitions</li>
+                    <li>No stock photos</li>
+                    <li>No user comfort</li>
+                </ul>
+            </div>
+
+            <!-- ARCHIVE - MINIMALIST -->
+            <div id="archive" class="mb-6">
+                <h3 class="text-xl font-bold mb-2 underline">ARCHIVE</h3>
+                <select class="bg-black text-white border-2 border-white p-1 w-full">
+                    <option>-- SELECT ISSUE --</option>
+                    <option>BRVT-01 (2023.03)</option>
+                    <option>BRVT-00 (2023.01)</option>
+                    <option>PRE-ESTABLISHMENT</option>
+                </select>
+            </div>
+
+            <!-- LINKS - BLUE UNDERLINED DEFAULT STYLE -->
+            <div>
+                <h3 class="text-xl font-bold mb-2 underline">LINKS</h3>
+                <div class="text-sm space-y-1">
+                    <p><a href="#" class="text-blue-400 underline">BRVTAL_BLOG</a></p>
+                    <p><a href="#" class="text-blue-400 underline">OUR_PRECURSORS</a></p>
+                    <p><a href="#" class="text-blue-400 underline">FUCK_THIS_SITE</a></p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- CONTACT SECTION - DELIBERATELY HARD TO FIND -->
+    <section id="contact" class="border-t-4 border-white p-4 md:p-8 bg-red-500 bg-opacity-10">
+        <div style="transform: rotate(1deg);">
+            <h2 class="text-4xl font-bold mb-4">CONTACT (WHY?)</h2>
+            <form class="max-w-lg space-y-4">
+                <div>
+                    <label class="block text-sm mb-1">NAME (OPTIONAL)</label>
+                    <input type="text" class="bg-black border-2 border-white p-2 w-full">
+                </div>
+                <div>
+                    <label class="block text-sm mb-1">EMAIL (WE WON'T REPLY)</label>
+                    <input type="email" class="bg-black border-2 border-white p-2 w-full">
+                </div>
+                <div>
+                    <label class="block text-sm mb-1">MESSAGE (MAX 120 CHARS)</label>
+                    <textarea class="bg-black border-2 border-white p-2 w-full h-32 resize-none"></textarea>
+                </div>
+                <button type="submit" class="bg-red-500 text-black font-bold py-2 px-4 border-2 border-white brutal-hover">SUBMIT</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER - EXPOSED STRUCTURE -->
+    <footer class="border-t-4 border-white p-4 text-xs text-center">
+        <div class="raw-code mb-2">
+            &lt;!-- THIS SITE IS PURPOSEFULLY UGLY --&gt;
+            &lt;!-- BUILT WITH CONTEMPT FOR WEB STANDARDS --&gt;
+        </div>
+        <p>© 2023 BRVTAL_ZINE (NO RIGHTS RESERVED)</p>
+    </footer>
+
+    <!-- JARRING ANIMATION EFFECT -->
+    <script>
+        function brutalAnimation() {
+            const elements = document.querySelectorAll('article, img');
+            elements.forEach(el => {
+                const randomX = Math.floor(Math.random() * 20) - 10;
+                const randomY = Math.floor(Math.random() * 20) - 10;
+                const randomRotate = Math.floor(Math.random() * 6) - 3;
+                el.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${randomRotate}deg)`;
+            });
+        }
+        
+        // Randomly trigger the animation every few seconds
+        setInterval(brutalAnimation, 3000);
+        
+        // Initial animation
+        window.addEventListener('load', brutalAnimation);
+    </script>
+</body>
+</html>
