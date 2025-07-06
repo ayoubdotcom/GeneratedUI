@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pawsitive Vibes | For Dog Lovers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dog-pattern-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 16c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-2c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zm33.414-6l5.95-5.95L45.95.636 40 6.586 34.05.636 32.636 2.05 38.586 8l-5.95 5.95 1.414 1.414L40 9.414l5.95 5.95 1.414-1.414L41.414 8zM40 48c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm0-2c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zM9.414 40l5.95-5.95-1.414-1.414L8 38.586l-5.95-5.95L.636 34.05 6.586 40l-5.95 5.95 1.414 1.414L8 41.414l5.95 5.95 1.414-1.414L9.414 40z' fill='%239C92AC' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .paw-print {
+            position: absolute;
+            opacity: 0.2;
+            z-index: -1;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .bouncy {
+            animation: bounce 2s infinite;
+        }
+        
+        .breed-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .testimonial-card:hover {
+            background-color: #fef3c7;
+        }
+    </style>
+</head>
+<body class="bg-amber-50 font-sans dog-pattern-bg">
+    <!-- Navigation -->
+    <nav class="bg-amber-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-paw text-amber-200 text-2xl"></i>
+                <a href="#" class="text-2xl font-bold hover:text-amber-200">Pawsitive Vibes</a>
+            </div>
+            
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+            
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex space-x-6">
+                <a href="#home" class="hover:text-amber-200 transition">Home</a>
+                <a href="#about" class="hover:text-amber-200 transition">About</a>
+                <a href="#breeds" class="hover:text-amber-200 transition">Breeds</a>
+                <a href="#care" class="hover:text-amber-200 transition">Care Tips</a>
+                <a href="#community" class="hover:text-amber-200 transition">Community</a>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-amber-800 px-4 pb-4">
+            <a href="#home" class="block py-2 hover:text-amber-200 transition">Home</a>
+            <a href="#about" class="block py-2 hover:text-amber-200 transition">About</a>
+            <a href="#breeds" class="block py-2 hover:text-amber-200 transition">Breeds</a>
+            <a href="#care" class="block py-2 hover:text-amber-200 transition">Care Tips</a>
+            <a href="#community" class="block py-2 hover:text-amber-200 transition">Community</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen overflow-hidden">
+        <!-- Background Video -->
+        <video autoplay muted loop class="absolute z-0 w-full min-h-full object-cover">
+            <source src="https://cdn.pixabay.com/video/2018/03/31/15305-262921865_large.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+        
+        <!-- Dark overlay -->
+        <div class="absolute inset-0 bg-black/30 z-0"></div>
+        
+        <!-- Paw prints (now on top of video) -->
+        <div class="paw-print top-10 left-10 text-amber-200 text-6xl transform rotate-45 z-10"><i class="fas fa-paw"></i></div>
+        <div class="paw-print bottom-20 right-12 text-amber-200 text-5xl z-10"><i class="fas fa-paw"></i></div>
+        <div class="paw-print top-1/3 right-1/4 text-amber-200 text-7xl transform -rotate-12 z-10"><i class="fas fa-paw"></i></div>
+        
+        <!-- Content -->
+        <div class="container mx-auto px-4 h-full flex items-center relative z-10">
+            <div class="max-w-3xl">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+                    Celebrate the Joy of <span class="text-amber-300">Canine</span> Love
+                </h1>
+                <p class="text-xl text-white mb-8 opacity-90">
+                    Your ultimate resource for everything dog-related. From breed information to training tips, 
+                    we're here to help you give your furry friend the best life possible.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#community" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-full transition transform hover:scale-105 shadow-lg">
+                        Join Our Pack <i class="fas fa-users ml-2"></i>
+                    </a>
+                    <a href="#breeds" class="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-bold py-3 px-6 rounded-full transition transform hover:scale-105 shadow-lg border border-white/30">
+                        Explore Breeds <i class="fas fa-search ml-2"></i>
+                    </a>
+                </div>
+            </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-amber-900 mb-4">Why We <i class="fas fa-heart text-amber-600"></i> Dogs</h2>
+                <div class="w-20 h-1 bg-amber-600 mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-amber-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transition">
+                    <div class="text-amber-600 text-4xl mb-4">
+                        <i class="fas fa-grin-tongue"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-amber-900 mb-3">Unconditional Love</h3>
+                    <p class="text-gray-700">
+                        Dogs give us their whole hearts without asking for anything in return. Their loyalty and affection enrich our lives in countless ways.
+                    </p>
+                </div>
+                
+                <div class="bg-amber-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transition">
+                    <div class="text-amber-600 text-4xl mb-4">
+                        <i class="fas fa-hiking"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-amber-900 mb-3">Active Lifestyle</h3>
+                    <p class="text-gray-700">
+                        Whether it's a walk in the park or a hike in the mountains, dogs encourage us to stay active and enjoy the great outdoors.
+                    </p>
+                </div>
+                
+                <div class="bg-amber-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transition">
+                    <div class="text-amber-600 text-4xl mb-4">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-amber-900 mb-3">Community</h3>
+                    <p class="text-gray-700">
+                        Dog lovers form a special community where we share knowledge, experiences, and the simple joy of seeing happy pups together.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-16 bg-amber-100 rounded-2xl p-8 shadow-md">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-6 md:mb-0">
+                        <img src="https://images.unsplash.com/photo-1544568100-847a948585b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                             alt="Dog and human together" 
+                             class="rounded-xl w-full max-w-md mx-auto">
+                    </div>
+                    <div class="md:w-1/2 md:pl-8">
+                        <h3 class="text-2xl font-bold text-amber-900 mb-4">Our Mission</h3>
+                        <p class="text-gray-700 mb-4">
+                            At Pawsitive Vibes, we believe every dog deserves a loving home, and every human can benefit from canine companionship. 
+                            Our goal is to bridge the gap between knowledge and action, helping both new and experienced dog owners provide the best care.
+                        </p>
+                        <p class="text-gray-700">
+                            From adoption resources to senior dog care, we're committed to supporting every stage of your dog ownership journey.
+                        </p>
+                        <button class="mt-6 bg-amber-700 hover:bg-amber-800 text-white font-bold py-2 px-6 rounded-full transition flex items-center">
+                            Read Our Story <i class="fas fa-long-arrow-alt-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Breeds Section -->
+    <section id="breeds" class="py-16 bg-amber-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-amber-900 mb-4">Popular Dog Breeds</h2>
+                <div class="w-20 h-1 bg-amber-600 mx-auto"></div>
+                <p class="text-gray-700 mt-4 max-w-2xl mx-auto">
+                    Explore some of the most beloved dog breeds. Each has unique characteristics that might make them your perfect companion.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Breed Card 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden breed-card transition duration-300 hover:cursor-pointer">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="https://images.unsplash.com/photo-1601758003122-53c40e686a19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                             alt="Golden Retriever" 
+                             class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-amber-900 mb-2">Golden Retriever</h3>
+                        <div class="flex items-center mb-3">
+                            <div class="flex text-amber-400">
+                                <i class="fas fa-dog"></i>
+                                <i class="fas fa-dog ml-1"></i>
+                                <i class="fas fa-dog ml-1"></i>
+                                <i class="fas fa-dog ml-1"></i>
+                                <i class="fas fa-dog ml-1 text-gray-300"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">High Energy</span>
+                        </div>
+                        <p class="text-gray-700 text-sm">
+                            Intelligent, friendly, and devoted. These dogs are easy to train and get along with everyone.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Breed Card 2 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden breed-card transition duration-300">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                             alt="French Bulldog" 
+                             class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-amber-900 mb-2">French Bulldog</h3>
+                        <div class="flex items-center mb-3">
+                            <div class="flex text-amber-400">
+                                <i class="fas fa-dog"></i>
+                                <i class="fas fa-dog ml-1"></i>
+                                <i class="fas fa-dog ml-1 text-gray-300"></i>
+                                <i class="fas fa-dog ml-1 text-gray-300"></i>
+                                <i class="fas fa-dog ml-1 text-gray-300"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">Low Energy</span>
+                        </div>
+                        <p class="text-gray-700 text-sm">
+                            Playful, smart, and adaptable. Perfect for apartment living with their moderate exercise needs.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Breed Card 3 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden breed-card transition duration-300">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="https://images.unsplash.com/photo-1539641388297-277284b9ba67?q=80&w=1170&auto=format&fit=crop&w=800&q=80" 
+                             alt="German Shepherd" 
+                             class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-amber-900 mb-2">German Shepherd</h3>
+                        <div class="flex items-center mb-3">
+                            <div class="flex text-amber-400">
+                                <i class="fas fa-dog"></i>
+                                <i class="fas fa-dog ml-1"></i>
+                                <i class="fas fa-dog ml-1"></i>
+                                <i class="fas fa-dog ml-1"></i>
+                                <i class="fas fa-dog ml-1 text-gray-300"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">Very Active</span>
+                        </div>
+                        <p class="text-gray-700 text-sm">
+                            Courageous, confident, and smart. Excellent working dogs and loyal family protectors.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Breed Card 4 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden breed-card transition duration-300">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                             alt="Poodle" 
+                             class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-amber-900 mb-2">Poodle</h3>
+                        <div class="flex items-center mb-3">
+                            <div class="flex text-amber-400">
+                                <i class="fas fa-dog"></i>
+                                <i class="fas fa-dog ml-1"></i>
+                                <i class="fas fa-dog ml-1"></i>
+                                <i class="fas fa-dog ml-1 text-gray-300"></i>
+                                <i class="fas fa-dog ml-1 text-gray-300"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">Moderate Energy</span>
+                        </div>
+                        <p class="text-gray-700 text-sm">
+                            Highly intelligent and alert. Comes in three size varieties (Standard, Miniature, Toy).
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block bg-amber-700 hover:bg-amber-800 text-white font-bold py-3 px-6 rounded-full transition flex items-center mx-auto w-max">
+                    View All Breeds <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Care Tips Section -->
+    <section id="care" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-amber-900 mb-4">Essential Dog Care Tips</h2>
+                <div class="w-20 h-1 bg-amber-600 mx-auto"></div>
+                <p class="text-gray-700 mt-4 max-w-2xl mx-auto">
+                    Keep your furry friend happy and healthy with these essential care recommendations from experts.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Nutrition -->
+                <div class="bg-amber-50 rounded-2xl p-8 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-amber-200 rounded-full p-3 mr-4">
+                            <i class="fas fa-bone text-amber-700 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-amber-900">Nutrition</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        A balanced diet is crucial for your dog's health. The right food varies by age, size, and activity level:
+                    </p>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                        <li>Puppies need food rich in protein and fat</li>
+                        <li>Adult dogs benefit from measured portions to prevent obesity</li>
+                        <li>Senior dogs may need food with joint supplements</li>
+                        <li>Always provide fresh water</li>
+                    </ul>
+                </div>
+                
+                <!-- Exercise -->
+                <div class="bg-amber-50 rounded-2xl p-8 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-amber-200 rounded-full p-3 mr-4">
+                            <i class="fas fa-running text-amber-700 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-amber-900">Exercise</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        Regular physical activity keeps dogs physically fit and mentally stimulated:
+                    </p>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                        <li>Tailor exercise to your dog's breed and age</li>
+                        <li>Daily walks are essential for most dogs</li>
+                        <li>Play fetch or tug-of-war for mental stimulation</li>
+                        <li>Puzzle toys can challenge intelligent breeds</li>
+                    </ul>
+                </div>
+                
+                <!-- Grooming -->
+                <div class="bg-amber-50 rounded-2xl p-8 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-amber-200 rounded-full p-3 mr-4">
+                            <i class="fas fa-bath text-amber-700 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-amber-900">Grooming</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        Proper grooming keeps your dog comfortable and helps you spot potential health issues:
+                    </p>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                        <li>Brush your dog regularly to prevent matting</li>
+                        <li>Bathe every 4-6 weeks (or as needed)</li>
+                        <li>Trim nails monthly to prevent discomfort</li>
+                        <li>Check ears weekly for signs of infection</li>
+                    </ul>
+                </div>
+                
+                <!-- Training -->
+                <div class="bg-amber-50 rounded-2xl p-8 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-amber-200 rounded-full p-3 mr-4">
+                            <i class="fas fa-graduation-cap text-amber-700 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-amber-900">Training</h3>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        Consistent training establishes good behavior and strengthens your bond:
+                    </p>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                        <li>Start training early with positive reinforcement</li>
+                        <li>Be consistent with commands and rewards</li>
+                        <li>Socialize puppies to various people and environments</li>
+                        <li>Address behavioral issues promptly</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-amber-100 rounded-2xl p-8 shadow-lg overflow-hidden">
+                <div class="flex flex-col lg:flex-row">
+                    <div class="lg:w-1/2 mb-6 lg:mb-0 lg:pr-8">
+                        <h3 class="text-2xl font-bold text-amber-900 mb-4">Emergency Preparedness</h3>
+                        <p class="text-gray-700 mb-4">
+                            Every dog owner should have a plan for emergencies:
+                        </p>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-2 mb-6">
+                            <li>Know the location of your nearest 24-hour veterinary clinic</li>
+                            <li>Have a pet first-aid kit available</li>
+                            <li>Keep medical records and important numbers handy</li>
+                            <li>Prepare an emergency kit with food, meds, and comfort items</li>
+                        </ul>
+                        <a href="#" class="text-amber-700 font-semibold hover:underline inline-flex items-center">
+                            Download Emergency Checklist <i class="fas fa-file-download ml-2"></i>
+                        </a>
+                    </div>
+                    <div class="lg:w-1/2 flex items-center">
+                        <img src="https://images.unsplash.com/photo-1505628346881-b72b27e84530?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                             alt="Dog first aid" 
+                             class="rounded-xl w-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="community" class="py-16 bg-amber-900 text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">What Our Community Says</h2>
+                <div class="w-20 h-1 bg-amber-200 mx-auto"></div>
+                <p class="mt-4 max-w-2xl mx-auto">
+                    Hear from real dog lovers about their experience with our community and resources.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-amber-800 rounded-2xl p-8 shadow-lg testimonial-card transition">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah J." class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Sarah J.</h4>
+                            <p class="text-amber-200 text-sm">Golden Retriever Owner</p>
+                        </div>
+                    </div>
+                    <p class="text-white mb-4">
+                        "The training resources here completely transformed my relationship with my overly energetic puppy. He's now the best-behaved dog at the dog park!"
+                    </p>
+                    <div class="flex text-amber-300">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star ml-1"></i>
+                        <i class="fas fa-star ml-1"></i>
+                        <i class="fas fa-star ml-1"></i>
+                        <i class="fas fa-star ml-1"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-amber-800 rounded-2xl p-8 shadow-lg testimonial-card transition">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael T." class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Michael T.</h4>
+                            <p class="text-amber-200 text-sm">First-time Dog Owner</p>
+                        </div>
+                    </div>
+                    <p class="text-white mb-4">
+                        "As a first-time dog owner, I was overwhelmed. The breed guides helped me choose the perfect companion for my lifestyle, and the support group answered all my newbie questions."
+                    </p>
+                    <div class="flex text-amber-300">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star ml-1"></i>
+                        <i class="fas fa-star ml-1"></i>
+                        <i class="fas fa-star ml-1"></i>
+                        <i class="fas fa-star ml-1"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-amber-800 rounded-2xl p-8 shadow-lg testimonial-card transition">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Lisa P." class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Lisa P.</h4>
+                            <p class="text-amber-200 text-sm">Senior Dog Specialist</p>
+                        </div>
+                    </div>
+                    <p class="text-white mb-4">
+                        "The senior dog care section is unparalleled. My 12-year-old Lab is thriving thanks to the nutrition and exercise tips tailored for older dogs."
+                    </p>
+                    <div class="flex text-amber-300">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star ml-1"></i>
+                        <i class="fas fa-star ml-1"></i>
+                        <i class="fas fa-star ml-1"></i>
+                        <i class="fas fa-star-half-alt ml-1"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Join Community CTA -->
+            <div class="mt-16 bg-amber-100 text-amber-900 rounded-2xl p-8 shadow-xl">
+                <div class="flex flex-col lg:flex-row items-center justify-between">
+                    <div class="lg:w-2/3 mb-6 lg:mb-0">
+                        <h3 class="text-2xl font-bold mb-2">Join Our Growing Community</h3>
+                        <p class="max-w-2xl">
+                            Connect with thousands of dog lovers, share experiences, get advice, and celebrate the joy of dogs together.
+                        </p>
+                    </div>
+                    <button class="bg-amber-700 hover:bg-amber-800 text-white font-bold py-3 px-8 rounded-full transition whitespace-nowrap">
+                        <i class="fas fa-user-plus mr-2"></i> Register Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-gradient-to-r from-amber-500 to-amber-600 rounded-2xl p-8 text-white shadow-xl">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-2">Get Regular Doggie Updates</h3>
+                    <p class="max-w-xl mx-auto">
+                        Subscribe to our newsletter for training tips, health advice, and heartwarming dog stories delivered to your inbox.
+                    </p>
+                </div>
+                
+                <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+                    <input type="email" placeholder="Your email address" 
+                           class="flex-grow px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-300 text-gray-900">
+                    <button type="submit" class="bg-amber-900 hover:bg-amber-950 text-white font-bold px-6 py-3 rounded-lg transition">
+                        Subscribe <i class="fas fa-paw ml-2"></i>
+                    </button>
+                </form>
+                
+                <p class="text-center text-amber-100 text-sm mt-4">
+                    We respect your privacy. Unsubscribe at any time.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-amber-950 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-8 md:mb-0">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-paw text-amber-400 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">Pawsitive Vibes</span>
+                    </div>
+                    <p class="max-w-xs text-amber-200">
+                        Celebrating the unconditional love and joy that dogs bring to our lives every day.
+                    </p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-amber-300 hover:text-white text-xl"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-amber-300 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-amber-300 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-amber-300 hover:text-white text-xl"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h4 class="font-bold text-lg mb-4 text-amber-300">Explore</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="hover:text-amber-200 transition">Home</a></li>
+                            <li><a href="#" class="hover:text-amber-200 transition">About Us</a></li>
+                            <li><a href="#" class="hover:text-amber-200 transition">Dog Breeds</a></li>
+                            <li><a href="#" class="hover:text-amber-200 transition">Care Guides</a></li>
+                            <li><a href="#" class="hover:text-amber-200 transition">Community</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-lg mb-4 text-amber-300">Resources</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="hover:text-amber-200 transition">Training Tips</a></li>
+                            <li><a href="#" class="hover:text-amber-200 transition">Nutrition Guide</a></li>
+                            <li><a href="#" class="hover:text-amber-200 transition">Health Checklist</a></li>
+                            <li><a href="#" class="hover:text-amber-200 transition">Adoption Centers</a></li>
+                            <li><a href="#" class="hover:text-amber-200 transition">Vet Finder</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-lg mb-4 text-amber-300">Contact</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-amber-400 mr-2"></i>
+                                <span>123 Dog Lane, Barkington</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-phone text-amber-400 mr-2"></i>
+                                <span>(555) 123-4567</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope text-amber-400 mr-2"></i>
+                                <span>hello@pawsitivevibes.com</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-amber-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-amber-500 text-sm mb-4 md:mb-0">
+                    © 2023 Pawsitive Vibes. All rights reserved.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-amber-500 hover:text-amber-300 text-sm">Privacy Policy</a>
+                    <a href="#" class="text-amber-500 hover:text-amber-300 text-sm">Terms of Service</a>
+                    <a href="#" class="text-amber-500 hover:text-amber-300 text-sm">FAQ</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.add('hidden');
+            });
+        });
+        
+        // Add animation to breed cards when they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeIn');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.breed-card, .testimonial-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
