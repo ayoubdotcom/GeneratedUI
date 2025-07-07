@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Tester</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h3>Customize Design</h3>
+        <div class="control-group">
+            <h4>Colors</h4>
+            <table class="color-table">
+                <tr>
+                    <td><label for="primaryColor">Primary Color:</label></td>
+                    <td>
+                        <input type="color" id="primaryColor" value="#3B82F6">
+                        <input type="text" id="primaryColorHex" value="#3B82F6" maxlength="7" style="width:90px; margin-left:8px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="secondaryColor">Secondary Color:</label></td>
+                    <td>
+                        <input type="color" id="secondaryColor" value="#10B981">
+                        <input type="text" id="secondaryColorHex" value="#10B981" maxlength="7" style="width:90px; margin-left:8px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="accentColor">Accent Color:</label></td>
+                    <td>
+                        <input type="color" id="accentColor" value="#EF4444">
+                        <input type="text" id="accentColorHex" value="#EF4444" maxlength="7" style="width:90px; margin-left:8px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="neutral1Color">Neutral 1 (Background):</label></td>
+                    <td>
+                        <input type="color" id="neutral1Color" value="#FFFFFF">
+                        <input type="text" id="neutral1ColorHex" value="#FFFFFF" maxlength="7" style="width:90px; margin-left:8px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="neutral2Color">Neutral 2 (Light BG/Card):</label></td>
+                    <td>
+                        <input type="color" id="neutral2Color" value="#F3F4F6">
+                        <input type="text" id="neutral2ColorHex" value="#F3F4F6" maxlength="7" style="width:90px; margin-left:8px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="neutral3Color">Neutral 3 (Headings):</label></td>
+                    <td>
+                        <input type="color" id="neutral3Color" value="#1F2937">
+                        <input type="text" id="neutral3ColorHex" value="#1F2937" maxlength="7" style="width:90px; margin-left:8px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="neutral4Color">Neutral 4 (Borders):</label></td>
+                    <td>
+                        <input type="color" id="neutral4Color" value="#D1D5DB">
+                        <input type="text" id="neutral4ColorHex" value="#D1D5DB" maxlength="7" style="width:90px; margin-left:8px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="textColor">Text Color:</label></td>
+                    <td>
+                        <input type="color" id="textColor" value="#000000">
+                        <input type="text" id="textColorHex" value="#000000" maxlength="7" style="width:90px; margin-left:8px;">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="control-group">
+            <h4>Typography</h4>
+            <label>Body Font Family:
+                <input type="text" id="fontFamilyBodyCustom" placeholder="Google Font (e.g. Roboto)" style="width:140px; margin-left:8px;">
+            </label>
+            <label>Headings Font Family:
+                <input type="text" id="fontFamilyHeadingsCustom" placeholder="Google Font (e.g. Montserrat)" style="width:140px; margin-left:8px;">
+            </label>
+            <!-- <label>Body Font Size:
+                <input type="range" id="fontSize" min="12" max="24" value="16">
+                <span id="fontSizeValue">16px</span>
+            </label>
+            <label>H1 Font Size:
+                <input type="range" id="fontSizeH1" min="24" max="56" value="40">
+                <span id="fontSizeH1Value">40px</span>
+            </label>
+            <label>H2 Font Size:
+                <input type="range" id="fontSizeH2" min="20" max="40" value="32">
+                <span id="fontSizeH2Value">32px</span>
+            </label>
+            <label>H3 Font Size:
+                <input type="range" id="fontSizeH3" min="16" max="32" value="24">
+                <span id="fontSizeH3Value">24px</span>
+            </label>
+            <label>Small Text Size:
+                <input type="range" id="fontSizeSmall" min="10" max="16" value="12">
+                <span id="fontSizeSmallValue">12px</span>
+            </label> -->
+        </div>
+    </div>
+    <main>
+        <div class="template customizable">
+            <!-- Navigation -->
+            <nav class="nav">
+                <div class="logo">DesignTester</div>
+                <ul class="nav-links">
+                    <li><a href="#header">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <!-- Header Section -->
+            <header class="header" id="header">
+                <div class="header-content">
+                    <h1>Welcome to Design Tester</h1>
+                    <p>Customize your landing page's color palette and typography in real time!</p>
+                    <a href="#features" class="btn">Learn More</a>
+                </div>
+            </header>
+            <!-- Features Section -->
+            <section class="features" id="features">
+                <h2>Features</h2>
+                <div class="features-list">
+                    <div class="feature-card">
+                        <h3>Live Customization</h3>
+                        <p>See your changes instantly as you adjust colors and fonts.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Responsive Design</h3>
+                        <p>Looks great on all devices, from desktop to mobile.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Easy to Use</h3>
+                        <p>Simple controls let you focus on your creativity.</p>
+                    </div>
+                </div>
+            </section>
+            <!-- About Section -->
+            <section class="about" id="about">
+                <h2>About</h2>
+                <p>
+                    Design Tester is a tool for designers and developers to experiment with color palettes and typography settings in real time. Perfect for prototyping and sharing ideas!
+                </p>
+            </section>
+            <!-- Contact Section -->
+            <section class="contact" id="contact">
+                <h2>Contact Us</h2>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Your Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="4" placeholder="Your Message"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </section>
+            <!-- Footer Section -->
+            <footer class="footer">
+                <p>&copy; 2024 Design Tester. All rights reserved.</p>
+            </footer>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
