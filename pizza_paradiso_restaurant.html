@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Paradiso - Authentic Italian Pizza</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1681&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 90vh;
+        }
+        
+        .menu-item {
+            transition: all 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .gallery-item {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .gallery-item img {
+            transition: all 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #f97316;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-bold text-orange-500">Pizza Paradiso</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-gray-800 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-gray-800 hover:text-orange-500 py-2 active">Home</a>
+                    <a href="#menu" class="nav-link text-gray-800 hover:text-orange-500 py-2">Menu</a>
+                    <a href="#about" class="nav-link text-gray-800 hover:text-orange-500 py-2">About</a>
+                    <a href="#gallery" class="nav-link text-gray-800 hover:text-orange-500 py-2">Gallery</a>
+                    <a href="#testimonials" class="nav-link text-gray-800 hover:text-orange-500 py-2">Reviews</a>
+                    <a href="#contact" class="nav-link text-gray-800 hover:text-orange-500 py-2">Contact</a>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden py-4">
+                <a href="#home" class="block py-2 text-gray-800 hover:text-orange-500">Home</a>
+                <a href="#menu" class="block py-2 text-gray-800 hover:text-orange-500">Menu</a>
+                <a href="#about" class="block py-2 text-gray-800 hover:text-orange-500">About</a>
+                <a href="#gallery" class="block py-2 text-gray-800 hover:text-orange-500">Gallery</a>
+                <a href="#testimonials" class="block py-2 text-gray-800 hover:text-orange-500">Reviews</a>
+                <a href="#contact" class="block py-2 text-gray-800 hover:text-orange-500">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero flex items-center justify-center text-center text-white">
+        <div class="container mx-auto px-6">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">Authentic Italian Pizza</h1>
+            <p class="text-xl md:text-2xl mb-8">Handcrafted with love using traditional recipes and the freshest ingredients</p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <a href="#menu" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">View Menu</a>
+                <a href="#order" class="bg-transparent hover:bg-white hover:text-orange-500 text-white font-bold py-3 px-8 border-2 border-white rounded-full transition duration-300 transform hover:scale-105">Order Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6 rounded-lg">
+                    <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-leaf text-orange-500 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Fresh Ingredients</h3>
+                    <p class="text-gray-600">We source only the freshest, highest quality ingredients for authentic flavor.</p>
+                </div>
+                <div class="text-center p-6 rounded-lg">
+                    <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-fire text-orange-500 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Wood-Fired Oven</h3>
+                    <p class="text-gray-600">Our traditional wood-fired oven gives our pizzas that perfect crispy crust.</p>
+                </div>
+                <div class="text-center p-6 rounded-lg">
+                    <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-truck text-orange-500 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Fast Delivery</h3>
+                    <p class="text-gray-600">Enjoy your favorite pizza hot and fresh with our speedy delivery service.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Our Menu</h2>
+            
+            <!-- Menu Tabs -->
+            <div class="flex justify-center mb-8">
+                <div class="inline-flex rounded-md shadow-sm">
+                    <button class="menu-tab px-4 py-2 text-sm font-medium rounded-l-lg bg-orange-500 text-white" data-category="classic">
+                        Classic Pizzas
+                    </button>
+                    <button class="menu-tab px-4 py-2 text-sm font-medium bg-gray-200 text-gray-800" data-category="specialty">
+                        Specialty Pizzas
+                    </button>
+                    <button class="menu-tab px-4 py-2 text-sm font-medium bg-gray-200 text-gray-800" data-category="sides">
+                        Sides
+                    </button>
+                    <button class="menu-tab px-4 py-2 text-sm font-medium rounded-r-lg bg-gray-200 text-gray-800" data-category="drinks">
+                        Drinks & Desserts
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Classic Pizzas -->
+            <div id="classic" class="menu-category grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1664&q=80" alt="Margherita Pizza" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-xl font-bold mb-2">Margherita</h3>
+                            <span class="text-orange-500 font-bold">$12.99</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Classic tomato sauce, fresh mozzarella, and basil.</p>
+                        <button class="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-full text-sm transition duration-300">Add to Order</button>
+                    </div>
+                </div>
+                <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Pepperoni Pizza" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-xl font-bold mb-2">Pepperoni</h3>
+                            <span class="text-orange-500 font-bold">$14.99</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Tomato sauce, mozzarella, and spicy pepperoni.</p>
+                        <button class="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-full text-sm transition duration-300">Add to Order</button>
+                    </div>
+                </div>
+                <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80" alt="Vegetarian Pizza" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-xl font-bold mb-2">Vegetarian</h3>
+                            <span class="text-orange-500 font-bold">$13.99</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Tomato sauce, mozzarella, bell peppers, mushrooms, and olives.</p>
+                        <button class="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-full text-sm transition duration-300">Add to Order</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Specialty Pizzas (hidden by default) -->
+            <div id="specialty" class="menu-category hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Specialty pizza items would go here -->
+                <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1681&q=80" alt="Truffle Pizza" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-xl font-bold mb-2">Truffle Delight</h3>
+                            <span class="text-orange-500 font-bold">$18.99</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Cream sauce, mozzarella, mushrooms, truffle oil, and arugula.</p>
+                        <button class="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-full text-sm transition duration-300">Add to Order</button>
+                    </div>
+                </div>
+                <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1601924582970-9238bcb495d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1752&q=80" alt="BBQ Chicken Pizza" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-xl font-bold mb-2">BBQ Chicken</h3>
+                            <span class="text-orange-500 font-bold">$16.99</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">BBQ sauce, mozzarella, grilled chicken, red onions, and cilantro.</p>
+                        <button class="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-full text-sm transition duration-300">Add to Order</button>
+                    </div>
+                </div>
+                <div class="menu-item bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1590947132387-155cc02f3212?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Hawaiian Pizza" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-xl font-bold mb-2">Hawaiian</h3>
+                            <span class="text-orange-500 font-bold">$15.99</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Tomato sauce, mozzarella, ham, and pineapple.</p>
+                        <button class="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-full text-sm transition duration-300">Add to Order</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Build Your Own Pizza -->
+            <div class="mt-16 bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-8">
+                    <h3 class="text-2xl font-bold mb-4">Build Your Own Pizza</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3">Choose Your Base</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="base" class="form-radio text-orange-500" checked>
+                                    <span class="ml-2">Classic Crust ($10.99)</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="base" class="form-radio text-orange-500">
+                                    <span class="ml-2">Thin Crust ($11.99)</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="base" class="form-radio text-orange-500">
+                                    <span class="ml-2">Gluten-Free ($13.99)</span>
+                                </label>
+                            </div>
+                            
+                            <h4 class="text-lg font-semibold mt-6 mb-3">Sauce</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="sauce" class="form-radio text-orange-500" checked>
+                                    <span class="ml-2">Tomato Sauce</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="sauce" class="form-radio text-orange-500">
+                                    <span class="ml-2">White Garlic Sauce</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="sauce" class="form-radio text-orange-500">
+                                    <span class="ml-2">BBQ Sauce</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3">Toppings ($1.50 each)</h4>
+                            <div class="grid grid-cols-2 gap-3">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-orange-500">
+                                    <span class="ml-2">Pepperoni</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-orange-500">
+                                    <span class="ml-2">Mushrooms</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-orange-500">
+                                    <span class="ml-2">Onions</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-orange-500">
+                                    <span class="ml-2">Sausage</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-orange-500">
+                                    <span class="ml-2">Bacon</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-orange-500">
+                                    <span class="ml-2">Olives</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-orange-500">
+                                    <span class="ml-2">Bell Peppers</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-orange-500">
+                                    <span class="ml-2">Pineapple</span>
+                                </label>
+                            </div>
+                            
+                            <button class="mt-6 bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-full transition duration-300">Add to Cart ($10.99)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pr-12">
+                    <h2 class="text-3xl font-bold mb-6">Our Story</h2>
+                    <p class="text-gray-600 mb-4">Founded in 2005 by Chef Marco Lombardi, Pizza Paradiso began as a small family-owned trattoria in the heart of Naples, Italy. With generations of pizza-making tradition in his blood, Chef Marco brought his authentic recipes and passion for quality ingredients to create something truly special.</p>
+                    <p class="text-gray-600 mb-4">What started as a humble neighborhood pizzeria has grown into a beloved local institution, known for our commitment to traditional techniques and innovative flavors. We still hand-toss every dough, slow-cook our tomato sauce for 48 hours, and source our mozzarella directly from small dairy farms in Campania.</p>
+                    <p class="text-gray-600">At Pizza Paradiso, we believe that great pizza starts with great ingredients and ends with happy customers. Every pizza that leaves our kitchen carries with it our family's legacy and our dedication to the art of pizza-making.</p>
+                </div>
+                <div class="lg:w-1/2">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80" alt="Chef making pizza" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Pizza ingredients" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1667388969250-1c7220bf3f37?q=80&w=2110&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Restaurant interior" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1601924582970-9238bcb495d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1752&q=80" alt="Pizza close-up" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Team Section -->
+            <div class="mt-16">
+                <h2 class="text-3xl font-bold text-center mb-12">Meet Our Team</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-48 h-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-orange-500">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1661&q=80" alt="Chef Marco" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold">Marco Lombardi</h3>
+                        <p class="text-orange-500 mb-2">Head Chef & Owner</p>
+                        <p class="text-gray-600">With over 30 years of experience, Chef Marco brings authentic Neapolitan techniques to every pizza.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-48 h-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-orange-500">
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Chef Sofia" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold">Sofia Ricci</h3>
+                        <p class="text-orange-500 mb-2">Sous Chef</p>
+                        <p class="text-gray-600">Trained in Rome, Sofia specializes in creating our signature sauces and seasonal specials.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-48 h-48 mx-auto mb-4 rounded-full overflow-hidden border-4 border-orange-500">
+                            <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1760&q=80" alt="Manager Luca" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold">Luca Bianchi</h3>
+                        <p class="text-orange-500 mb-2">Restaurant Manager</p>
+                        <p class="text-gray-600">Luca ensures every guest has an exceptional dining experience from start to finish.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Gallery</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="gallery-item rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1681&q=80" alt="Pizza 1" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1571066811602-716837d681de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1844&q=80" alt="Pizza 2" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1593504049359-74330189a345?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1827&q=80" alt="Pizza 3" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Pizza 4" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80" alt="Pizza 5" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1601924582970-9238bcb495d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1752&q=80" alt="Pizza 6" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1590947132387-155cc02f3212?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Pizza 7" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1664&q=80" alt="Pizza 8" class="w-full h-48 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="testimonial-card bg-gray-50 p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"The best pizza I've had outside of Italy! The crust is perfectly crispy, and the ingredients taste so fresh. The Margherita is my absolute favorite."</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah J." class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <h4 class="font-bold">Sarah J.</h4>
+                            <p class="text-sm text-gray-500">Regular Customer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card bg-gray-50 p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"I order from Pizza Paradiso at least twice a month. Their delivery is always on time, and the pizza arrives hot and delicious. The Truffle Delight is incredible!"</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael T." class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <h4 class="font-bold">Michael T.</h4>
+                            <p class="text-sm text-gray-500">Delivery Customer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card bg-gray-50 p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star-half-alt text-yellow-400"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"The atmosphere is wonderful, and the staff is so friendly. We had a family dinner here last weekend, and everyone loved their pizzas. The kids still talk about the dessert pizza!"</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Lisa M." class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <h4 class="font-bold">Lisa M.</h4>
+                            <p class="text-sm text-gray-500">Dine-in Customer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Contact Us</h2>
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-1/2">
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-4">Get in Touch</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-orange-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold">Address</h4>
+                                    <p class="text-gray-600">123 Pizza Street, Naples, Italy</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-phone-alt text-orange-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold">Phone</h4>
+                                    <p class="text-gray-600">+39 123 456 7890</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-envelope text-orange-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold">Email</h4>
+                                    <p class="text-gray-600">info@pizzaparadiso.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-clock text-orange-500 mt-1 mr-3"></i>
+                                <div>
+                                    <h4 class="font-semibold">Hours</h4>
+                                    <p class="text-gray-600">Monday - Thursday: 11am - 10pm</p>
+                                    <p class="text-gray-600">Friday - Saturday: 11am - 11pm</p>
+                                    <p class="text-gray-600">Sunday: 12pm - 9pm</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h3 class="text-xl font-bold mb-4">Find Us</h3>
+                            <div class="rounded-lg overflow-hidden h-64">
+                                <!-- Map placeholder -->
+                                <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                                    <p class="text-gray-500">Map would be displayed here</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-4">Send Us a Message</h3>
+                        <form>
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-700 mb-2">Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-700 mb-2">Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="subject" class="block text-gray-700 mb-2">Subject</label>
+                                <input type="text" id="subject" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="message" class="block text-gray-700 mb-2">Message</label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"></textarea>
+                            </div>
+                            <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-full transition duration-300 w-full">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Online Section -->
+    <section id="order" class="py-16 bg-orange-500 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4">Hungry? Order Online Now!</h2>
+            <p class="text-xl mb-8">Get your favorite pizza delivered to your door or ready for pickup</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#" class="bg-white hover:bg-gray-100 text-orange-500 font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">Order on DoorDash</a>
+                <a href="#" class="bg-transparent hover:bg-orange-600 text-white font-bold py-3 px-8 border-2 border-white rounded-full transition duration-300 transform hover:scale-105">Call to Order</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Pizza Paradiso</h3>
+                    <p class="text-gray-400">Authentic Italian pizza made with love and tradition since 2005.</p>
+                    <div class="flex mt-4 space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-yelp"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#menu" class="text-gray-400 hover:text-white">Menu</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-white">Gallery</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-2"></i>
+                            <span>123 Pizza Street, Naples, Italy</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-2"></i>
+                            <span>+39 123 456 7890</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-2"></i>
+                            <span>info@pizzaparadiso.com</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe to our newsletter for special offers and updates.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 w-full rounded-l-lg focus:outline-none text-gray-900">
+                        <button type="submit" class="bg-orange-500 hover:bg-orange-600 px-4 rounded-r-lg">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Pizza Paradiso. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Menu tab functionality
+        const menuTabs = document.querySelectorAll('.menu-tab');
+        const menuCategories = document.querySelectorAll('.menu-category');
+        
+        menuTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                menuTabs.forEach(t => t.classList.remove('bg-orange-500', 'text-white'));
+                menuTabs.forEach(t => t.classList.add('bg-gray-200', 'text-gray-800'));
+                
+                // Add active class to clicked tab
+                tab.classList.remove('bg-gray-200', 'text-gray-800');
+                tab.classList.add('bg-orange-500', 'text-white');
+                
+                // Hide all menu categories
+                menuCategories.forEach(category => category.classList.add('hidden'));
+                
+                // Show selected category
+                const categoryId = tab.getAttribute('data-category');
+                document.getElementById(categoryId).classList.remove('hidden');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                    
+                    // Update active nav link
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    
+                    if (targetId !== '#home') {
+                        this.classList.add('active');
+                    }
+                }
+            });
+        });
+
+        // Update active nav link on scroll
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
