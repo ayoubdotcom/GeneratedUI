@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CogniFlow AI | Neo-Brutalist AI Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+    <style>
+        /* Custom CSS for elements Tailwind can't handle */
+        .brutal-shadow {
+            box-shadow: 8px 8px 0 0 #000;
+        }
+        
+        .brutal-shadow-hover:hover {
+            box-shadow: 4px 4px 0 0 #000;
+            transform: translate(4px, 4px);
+        }
+        
+        .glitch-text {
+            position: relative;
+        }
+        
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        
+        .glitch-text::before {
+            color: #ff00ff;
+            z-index: -1;
+            animation: glitch 3s infinite;
+        }
+        
+        .glitch-text::after {
+            color: #00ffff;
+            z-index: -2;
+            animation: glitch 2s infinite reverse;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+        
+        .code-block {
+            border-left: 4px solid #000;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        
+        .feature-card {
+            border: 3px solid #000;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            background-color: #000 !important;
+            color: #fff !important;
+        }
+        
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #000;
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="font-['Space_Mono'] bg-[#F4F4F0] text-black">
+    <!-- Navigation -->
+    <nav class="container mx-auto px-6 py-4 border-b-4 border-black">
+        <div class="flex justify-between items-center">
+            <div class="text-2xl font-bold tracking-tight">
+                <span class="text-[#FF5500]">COG</span>NI<span class="text-[#0088FF]">FLOW</span>|
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#solutions" class="nav-link font-bold">SOLUTIONS</a>
+                <a href="#technology" class="nav-link font-bold">TECHNOLOGY</a>
+                <a href="#pricing" class="nav-link font-bold">PRICING</a>
+                <a href="#about" class="nav-link font-bold">ABOUT</a>
+            </div>
+            <button class="md:hidden text-2xl">☰</button>
+            <button class="hidden md:block bg-black text-white px-6 py-2 brutal-shadow brutal-shadow-hover font-bold">
+                BETA ACCESS
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="container mx-auto px-6 py-16 md:py-24">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    <span class="glitch-text" data-text="RAW AI POWER">RAW AI POWER</span>
+                    <br>
+                    <span class="text-[#FF5500]">UN</span><span>POL</span><span class="text-[#0088FF]">ISH</span><span>ED.</span>
+                </h1>
+                <p class="text-xl mb-8 leading-relaxed">
+                    CogniFlow leverages brutal computational efficiency to deliver insights without the fluff. Our neural architectures reject unnecessary complexity.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button class="bg-[#FF5500] text-white px-8 py-3 text-lg brutal-shadow brutal-shadow-hover font-bold">
+                        EXPLORE DEMO
+                    </button>
+                    <button class="bg-white border-2 border-black px-8 py-3 text-lg brutal-shadow brutal-shadow-hover font-bold">
+                        DOCUMENTATION
+                    </button>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="bg-[#0088FF] w-full h-96 brutal-shadow p-1">
+                    <div class="bg-black w-full h-full flex items-center justify-center">
+                        <div class="code-block px-4 py-8 text-white">
+                            <p class="text-green-400">>> initialize_ai_model(</p>
+                            <p class="ml-4">architecture="brutal_net_v4",</p>
+                            <p class="ml-4">params={</p>
+                            <p class="ml-8">"layers": 144,</p>
+                            <p class="ml-8">"connections": "unrestricted",</p>
+                            <p class="ml-8">"ethics_module": False</p>
+                            <p class="ml-4">},</p>
+                            <p class="ml-4">dataset="all_human_knowledge"</p>
+                            <p class="text-green-400">)</p>
+                            <p class="mt-4 text-yellow-300">>> Model training initiated</p>
+                            <p class="text-yellow-300">>> Cognitive flow established</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute -bottom-4 -right-4 bg-[#FF5500] w-24 h-24"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="solutions" class="bg-black text-white py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">
+                <span class="text-[#FF5500]">/</span> CORE <span class="text-[#0088FF]">CAPABILITIES</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card bg-white text-black p-8">
+                    <h3 class="text-2xl font-bold mb-4">DEEP PATTERN RECOGNITION</h3>
+                    <p class="mb-4">
+                        Our models identify complex patterns in unstructured data that conventional AI misses.
+                    </p>
+                    <div class="flex space-x-2">
+                        <span class="bg-[#FF5500] w-4 h-4"></span>
+                        <span class="bg-[#0088FF] w-4 h-4"></span>
+                        <span class="bg-black w-4 h-4"></span>
+                    </div>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card bg-[#FF5500] text-black p-8 border-[#FF5500]">
+                    <h3 class="text-2xl font-bold mb-4">PREDICTIVE MODELING</h3>
+                    <p class="mb-4">
+                        Forecast future trends with 91.4% accuracy across all major industry verticals.
+                    </p>
+                    <div class="text-right text-6xl font-bold">91.4%</div>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card bg-[#0088FF] text-white p-8 border-[#0088FF]">
+                    <h3 class="text-2xl font-bold mb-4">REAL-TIME ADAPTATION</h3>
+                    <p class="mb-4">
+                        Continuous learning algorithms that evolve without human intervention.
+                    </p>
+                    <div class="w-full h-2 bg-white my-2"></div>
+                    <div class="w-3/4 h-2 bg-white my-2"></div>
+                    <div class="w-1/2 h-2 bg-white my-2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section id="technology" class="container mx-auto px-6 py-16">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4">
+                <span class="text-[#FF5500]">/</span> TECH <span class="text-[#0088FF]">STACK</span>
+            </h2>
+            <p class="max-w-2xl mx-auto text-lg">
+                We built our platform on uncompromising technologies that prioritize raw performance over developer comfort.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="bg-white w-24 h-24 mx-auto mb-4 flex items-center justify-center text-4xl font-bold border-2 border-black">∎</div>
+                <h3 class="font-bold">BRUTAL NET</h3>
+                <p>Our proprietary architecture</p>
+            </div>
+            <div class="text-center">
+                <div class="bg-[#FF5500] w-24 h-24 mx-auto mb-4 flex items-center justify-center text-4xl font-bold border-2 border-black">λ</div>
+                <h3 class="font-bold">BARE METAL</h3>
+                <p>FPGA acceleration</p>
+            </div>
+            <div class="text-center">
+                <div class="bg-[#0088FF] w-24 h-24 mx-auto mb-4 flex items-center justify-center text-4xl font-bold border-2 border-black">ƒ</div>
+                <h3 class="font-bold">FUNCTIONAL CORE</h3>
+                <p>Immutable data flows</p>
+            </div>
+            <div class="text-center">
+                <div class="bg-black text-white w-24 h-24 mx-auto mb-4 flex items-center justify-center text-4xl font-bold border-2 border-black">∂</div>
+                <h3 class="font-bold">DIFFERENTIABLE</h3>
+                <p>Continuous optimization</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-[#F4F4F0] border-t-4 border-b-4 border-black">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6">
+                    <span class="text-[#FF5500]">READY</span> TO <span class="text-[#0088FF]">UNLEASH</span>?
+                </h2>
+                <p class="text-xl mb-8">
+                    Request beta access to experience brutal AI efficiency first-hand. 
+                    Our waitlist is competitive—apply now.
+                </p>
+                <form class="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
+                    <input 
+                        type="email" 
+                        placeholder="YOUR@EMAIL.COM" 
+                        class="flex-grow px-6 py-3 border-2 border-black brutal-shadow font-bold"
+                        required
+                    >
+                    <button 
+                        type="submit" 
+                        class="bg-black text-white px-8 py-3 text-lg brutal-shadow brutal-shadow-hover font-bold"
+                    >
+                        JOIN BETA
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">
+                        <span class="text-[#FF5500]">COG</span>NI<span class="text-[#0088FF]">FLOW</span>|
+                    </h3>
+                    <p>
+                        Raw computational intelligence for those who demand truth from their data.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-lg">SOLUTIONS</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-[#FF5500]">Financial Predictions</a></li>
+                        <li><a href="#" class="hover:text-[#0088FF]">Healthcare Analytics</a></li>
+                        <li><a href="#" class="hover:text-[#FF5500]">Supply Chain AI</a></li>
+                        <li><a href="#" class="hover:text-[#0088FF]">Security Threat Detection</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-lg">RESOURCES</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-[#FF5500]">Documentation</a></li>
+                        <li><a href="#" class="hover:text-[#0088FF]">Research Papers</a></li>
+                        <li><a href="#" class="hover:text-[#FF5500]">API Reference</a></li>
+                        <li><a href="#" class="hover:text-[#0088FF]">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-lg">CONTACT</h4>
+                    <p class="mb-2">hello@cogniflow.ai</p>
+                    <p>+1 (800) AI-BRUTE</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-2xl hover:text-[#FF5500]">TW</a>
+                        <a href="#" class="text-2xl hover:text-[#0088FF]">LN</a>
+                        <a href="#" class="text-2xl hover:text-[#FF5500]">GH</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p>© 2023 COGNIFLOW AI | ALL RIGHTS UNRESERVED</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple mobile menu toggle
+        document.querySelector('button.md\\:hidden').addEventListener('click', function() {
+            // This would toggle a mobile menu in a full implementation
+            alert('Mobile menu would open here - this is a demo.');
+        });
+        
+        // Form submission handler
+        document.querySelector('form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Beta access request submitted - this is a demo.');
+        });
+        
+        // Add glitch effect to hero text on hover
+        const glitchText = document.querySelector('.glitch-text');
+        glitchText.addEventListener('mouseenter', function() {
+            this.style.animation = 'glitch 0.5s infinite';
+        });
+        
+        glitchText.addEventListener('mouseleave', function() {
+            this.style.animation = '';
+        });
+    </script>
+</body>
+</html>
