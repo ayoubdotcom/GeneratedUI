@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Programming Resources</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        dark: '#1F2937',
+                        darker: '#111827',
+                        code: '#1E1E1E',
+                    },
+                    fontFamily: {
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    boxShadow: {
+                        'neon': '0 0 10px rgba(59, 130, 246, 0.5)',
+                        'neon-green': '0 0 10px rgba(16, 185, 129, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap');
+        
+        body {
+            font-family: 'Fira Code', monospace;
+            background-color: #111827;
+            color: #E5E7EB;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #3B82F6;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #3B82F6; }
+        }
+        
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.7);
+        }
+        
+        .terminal {
+            background-color: #1E1E1E;
+            border-radius: 8px;
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .terminal::before {
+            content: '>_';
+            position: absolute;
+            left: 10px;
+            top: -15px;
+            background-color: #1E1E1E;
+            color: #10B981;
+            padding: 0 10px;
+            font-size: 0.8rem;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .prompt {
+            color: #10B981;
+        }
+        
+        .cursor {
+            animation: blink 1s step-end infinite;
+        }
+        
+        @keyframes blink {
+            from, to { opacity: 1 }
+            50% { opacity: 0 }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-10 px-4">
+    <div class="w-full max-w-md mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="w-24 h-24 mx-auto mb-4 overflow-hidden rounded-full border-2 border-primary shadow-neon">
+                <img src="https://pbs.twimg.com/profile_images/1939015496239566848/v15cJiXj_400x400.jpg" alt="Profile" class="w-full h-full object-cover">
+            </div>
+            <h1 class="text-2xl font-bold text-primary mb-2">@AyoubBoudine</h1>
+            <div class="typewriter text-sm text-secondary mb-4">Exploring AI Opportunities in Our Lives</div>
+            
+            <div class="terminal mb-6">
+                <p class="text-sm">
+                    <span class="prompt">$</span> Welcome to my AI resources<span class="cursor">_</span>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Links -->
+        <div class="space-y-4 mb-8">
+
+            <a href="https://ayoubdotcom.github.io/GeneratedUI/design_tester/" class="link-card block bg-dark hover:bg-darker border border-gray-700 rounded-lg p-4 transition-all duration-300 shadow-md">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-md bg-code flex items-center justify-center mr-3">
+                        <i class="fas fa-code text-primary"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium">Color Palette & Typography Tester</h3>
+                        <p class="text-xs text-gray-400">To help you visualize the colors & typography</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="link-card block bg-dark hover:bg-darker border border-gray-700 rounded-lg p-4 transition-all duration-300 shadow-md">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-md bg-code flex items-center justify-center mr-3">
+                        <i class="fas fa-book text-primary"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium">Twitter Growth Strategy Guide</h3>
+                        <p class="text-xs text-gray-400">For AI focused account</p>
+                    </div>
+                </div>
+            </a>
+            <!-- <a href="#" class="link-card block bg-dark hover:bg-darker border border-gray-700 rounded-lg p-4 transition-all duration-300 shadow-md">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-md bg-code flex items-center justify-center mr-3">
+                        <i class="fas fa-robot text-primary"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium">AI Programming 101 Course</h3>
+                        <p class="text-xs text-gray-400">Master the fundamentals</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="#" class="link-card block bg-dark hover:bg-darker border border-gray-700 rounded-lg p-4 transition-all duration-300 shadow-md">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-md bg-code flex items-center justify-center mr-3">
+                        <i class="fas fa-code text-secondary"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium">GPT-4 Code Assistant</h3>
+                        <p class="text-xs text-gray-400">Premium plugin for VSCode</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="#" class="link-card block bg-dark hover:bg-darker border border-gray-700 rounded-lg p-4 transition-all duration-300 shadow-md">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-md bg-code flex items-center justify-center mr-3">
+                        <i class="fas fa-book text-primary"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium">AI Cheat Sheets</h3>
+                        <p class="text-xs text-gray-400">All frameworks in one place</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="#" class="link-card block bg-dark hover:bg-darker border border-gray-700 rounded-lg p-4 transition-all duration-300 shadow-md">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-md bg-code flex items-center justify-center mr-3">
+                        <i class="fas fa-terminal text-secondary"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium">Prompt Engineering Guide</h3>
+                        <p class="text-xs text-gray-400">Get better AI results</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="#" class="link-card block bg-dark hover:bg-darker border border-gray-700 rounded-lg p-4 transition-all duration-300 shadow-md">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-md bg-code flex items-center justify-center mr-3">
+                        <i class="fas fa-gem text-primary"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium">Premium Templates</h3>
+                        <p class="text-xs text-gray-400">AI-powered starter kits</p>
+                    </div>
+                </div>
+            </a> -->
+        </div>
+        
+        <!-- Social Links -->
+        <div class="flex justify-center space-x-4 mb-8">
+            <a href="https://x.com/ayoubboudine_" class="w-10 h-10 rounded-full bg-dark flex items-center justify-center hover:bg-primary hover:text-white transition-colors duration-300">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <!-- <a href="#" class="w-10 h-10 rounded-full bg-dark flex items-center justify-center hover:bg-blue-700 hover:text-white transition-colors duration-300">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-dark flex items-center justify-center hover:bg-purple-600 hover:text-white transition-colors duration-300">
+                <i class="fab fa-discord"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-dark flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors duration-300">
+                <i class="fab fa-youtube"></i>
+            </a> -->
+        </div>
+        
+        <!-- Footer -->
+        <div class="text-center text-xs text-gray-500">
+            <p>© 2025 Ayoub Boudine. All rights reserved.</p>
+            <p class="mt-1">Powered by <span class="text-primary">code</span> and <span class="text-secondary">AI</span></p>
+        </div>
+    </div>
+    
+    <script>
+        // Simple animation for the terminal cursor
+        const cursor = document.querySelector('.cursor');
+        setInterval(() => {
+            cursor.style.visibility = (cursor.style.visibility === 'hidden' ? '' : 'hidden');
+        }, 500);
+        
+        // Add ripple effect to link cards
+        document.querySelectorAll('.link-card').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const ripple = document.createElement('span');
+                ripple.className = 'absolute bg-white opacity-30 rounded-full -translate-x-1/2 -translate-y-1/2';
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                ripple.style.width = '10px';
+                ripple.style.height = '10px';
+                ripple.style.animation = 'ripple 1s ease-out forwards';
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                    window.location.href = this.getAttribute('href');
+                }, 1000);
+            });
+        });
+        
+        // Add style for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(40);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
